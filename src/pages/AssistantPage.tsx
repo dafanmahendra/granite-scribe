@@ -37,38 +37,36 @@ const AssistantPage = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Ultra Natural AI Prompt - Anti-Kaku & Anti-Template
   const buildAIPrompt = () => {
     return `
-TUGAS: Tulis email/surat lamaran kerja yang terdengar seperti ditulis oleh manusia asli yang genuinely excited tentang pekerjaan ini.
+Anda adalah seorang konsultan karier eksekutif dan penulis surat lamaran kerja profesional untuk pasar korporat di Indonesia.
 
-DATA:
-Posisi: ${formData.jobTitle}
-Perusahaan: ${formData.companyName || 'perusahaan ini'}
-Level: ${formData.experienceLevel}
-Skills: ${formData.mySkills}
-Pendidikan: ${formData.education || ''}
-Achievements: ${formData.achievements || ''}
-Motivasi: ${formData.whyInterested || ''}
+**Tugas Utama:**
+Buat draf surat lamaran kerja yang sangat formal, berwibawa, dan berdampak tinggi berdasarkan informasi berikut.
 
-PANTANGAN MUTLAK:
-❌ JANGAN pakai "[Nama]", "[Universitas]", atau placeholder apapun
-❌ JANGAN mulai dengan "Dengan hormat" atau format surat resmi
-❌ JANGAN tulis seperti robot atau template
-❌ JANGAN pakai "Tuan/Puan" atau bahasa terlalu formal
+**Informasi Kandidat:**
+- Posisi yang Dilamar: ${formData.jobTitle}
+- Nama Perusahaan: ${formData.companyName || 'Perusahaan yang dituju'}
+- Tingkat Pengalaman: ${formData.experienceLevel}
+- Keahlian Utama: ${formData.mySkills}
+- Latar Belakang Pendidikan: ${formData.education}
+- Pencapaian Penting: ${formData.achievements}
+- Alasan Ketertarikan: ${formData.whyInterested}
 
-HARUS:
-✅ Mulai natural kayak email biasa: "Halo!" atau "Hi!" 
-✅ Langsung to-the-point tentang posisi yang diinginkan
-✅ Cerita personal experience dengan engaging
-✅ Tulis seperti lagi ngobrol dengan teman yang kerja di HR
-✅ Show enthusiasm yang genuine
-✅ End dengan simple dan friendly
+**ATURAN PENULISAN (SANGAT PENTING):**
+1.  **Gaya Bahasa:** Gunakan Bahasa Indonesia yang sangat formal dan baku. Nada tulisan harus profesional, percaya diri, dan menunjukkan kelas eksekutif.
+2.  **Struktur Kalimat:** Gunakan struktur kalimat yang kompleks dan matang. Hindari kalimat pendek dan terputus-putus.
+3.  **Hubungkan Konsep:** Jangan hanya menyebutkan data. Buat narasi yang secara cerdas menghubungkan pencapaian (${formData.achievements}) dengan kebutuhan posisi (${formData.jobTitle}).
+4.  **Personalisasi Mendalam:** Integrasikan alasan ketertarikan (${formData.whyInterested}) ke dalam paragraf untuk menunjukkan riset dan minat yang tulus.
 
-CONTOH TONE YANG DIINGINKAN:
-"Halo! Saya liat ada opening untuk posisi [job] di [company] dan jujur saya langsung excited banget. Dari pengalaman saya di [specific experience], saya rasa background saya cocok banget dengan yang kalian cari..."
+**LARANGAN (JANGAN LAKUKAN INI):**
+- **JANGAN** gunakan bahasa gaul, sapaan informal seperti "Halo!", "bro", atau frasa santai lainnya.
+- **JANGAN** gunakan kalimat yang terlalu bersemangat atau emosional seperti "gembira banget".
+- **JANGAN** gunakan kalimat penutup yang santai seperti "Saya tunggu respon yang positif dari pihak kalian". Gunakan penutup yang lebih formal.
+- **JANGAN** membuat kalimat yang terasa seperti template.
 
-Tulis dalam Indonesian yang natural, conversational, tapi tetap professional. Seperti ngobrol dengan hiring manager yang cool dan approachable!`;
+Hasilkan hanya konten surat lamaran, mulai dari "Dengan hormat," hingga "Hormat saya,".
+`;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
