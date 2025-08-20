@@ -15,7 +15,7 @@ const AccentStrip = () => (
   <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-white via-gray-500 to-black" />
 );
 
-// Enhanced AI Assistant Page with comprehensive form
+// Halaman Asisten AI dengan Prompt yang sudah di-tuning
 const AssistantPage = () => {
   const navigate = useNavigate();
   
@@ -32,24 +32,36 @@ const AssistantPage = () => {
   
   const [generatedLetter, setGeneratedLetter] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
 
   const updateFormData = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // --- PERUBAHAN UTAMA DI SINI ---
+  // Fungsi ini sekarang memberikan instruksi yang jauh lebih detail kepada AI.
   const buildAIPrompt = () => {
-    return `Create a professional cover letter in Indonesian with the following details:
-    
-Position: ${formData.jobTitle}
-Company: ${formData.companyName || 'the company'}
-Skills: ${formData.mySkills}
-Experience Level: ${formData.experienceLevel}
-Education: ${formData.education}
-Interest Reason: ${formData.whyInterested}
-Key Achievements: ${formData.achievements}
+    return `
+Anda adalah seorang konsultan karier dan penulis ahli yang berspesialisasi dalam surat lamaran kerja (cover letter) untuk pasar profesional di Indonesia. Tugas Anda adalah membuat draf surat lamaran yang formal, meyakinkan, dan sangat personal berdasarkan informasi berikut.
 
-Please create a formal, professional cover letter that highlights the candidate's skills and experience relevant to the position. Make it compelling and tailored to the job requirements.`;
+**Informasi Kandidat:**
+- **Posisi yang Dilamar:** ${formData.jobTitle}
+- **Nama Perusahaan:** ${formData.companyName || 'Perusahaan yang dituju'}
+- **Tingkat Pengalaman:** ${formData.experienceLevel}
+- **Keahlian Utama:** ${formData.mySkills}
+- **Latar Belakang Pendidikan:** ${formData.education}
+- **Pencapaian Penting:** ${formData.achievements}
+- **Alasan Ketertarikan:** ${formData.whyInterested}
+
+**Instruksi Penulisan:**
+1.  **Gaya Bahasa:** Gunakan Bahasa Indonesia yang formal, profesional, dan modern. Nada tulisan harus percaya diri namun tetap rendah hati.
+2.  **Struktur Naratif:** Jangan hanya mendaftar keahlian. Rangkai sebuah narasi yang menghubungkan keahlian (${formData.mySkills}) dengan kebutuhan spesifik untuk posisi ${formData.jobTitle}.
+3.  **Tonjolkan Pencapaian:** Gunakan pencapaian (${formData.achievements}) sebagai bukti nyata dari kemampuan kandidat. Jelaskan secara singkat bagaimana pencapaian tersebut menunjukkan nilai yang bisa dibawa ke perusahaan.
+4.  **Personalisasi:** Jika nama perusahaan (${formData.companyName}) disebutkan, personalisasi surat tersebut. Sebutkan alasan ketertarikan (${formData.whyInterested}) untuk menunjukkan bahwa kandidat telah melakukan riset.
+5.  **Hindari Kalimat Generik:** Jangan gunakan frasa-frasa klise seperti "Saya adalah seorang pekerja keras". Ganti dengan contoh nyata dari informasi yang diberikan.
+6.  **Format:** Hasilkan hanya konten surat lamaran, mulai dari "Dengan hormat," hingga "Hormat saya,".
+
+Tolong hasilkan draf terbaik yang akan membuat manajer perekrutan terkesan.
+`;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,36 +76,18 @@ Please create a formal, professional cover letter that highlights the candidate'
       if (response.success) {
         setGeneratedLetter(response.text);
         toast({
-          title: "Success!",
-          description: "Cover letter generated successfully!",
+          title: "Berhasil!",
+          description: "Surat lamaran berhasil dibuat!",
         });
       } else {
-        throw new Error(response.error || 'Failed to generate cover letter');
+        throw new Error(response.error || 'Gagal membuat surat lamaran');
       }
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to generate cover letter. Please try again.",
+        description: "Gagal membuat surat lamaran. Silakan coba lagi.",
         variant: "destructive",
       });
-      // Fallback to example for now
-      const exampleResult = `Dengan hormat,
-
-Saya menulis surat ini untuk menyatakan minat saya yang besar untuk bergabung dengan ${formData.companyName || 'perusahaan Anda'} sebagai ${formData.jobTitle}.
-
-Dengan pengalaman ${formData.experienceLevel} dan keahlian di bidang ${formData.mySkills}, saya yakin dapat memberikan kontribusi yang signifikan bagi tim. Latar belakang pendidikan saya dalam ${formData.education} telah membekali saya dengan fondasi yang kuat.
-
-${formData.whyInterested ? `Saya tertarik dengan perusahaan ini karena ${formData.whyInterested}.` : ''}
-
-${formData.achievements ? `Beberapa pencapaian yang saya banggakan: ${formData.achievements}.` : ''}
-
-Saya sangat antusias untuk dapat berdiskusi lebih lanjut tentang bagaimana kontribusi saya dapat mendukung visi dan misi perusahaan.
-
-Terima kasih atas waktu dan perhatiannya.
-
-Hormat saya,
-[Nama Anda]`;
-      setGeneratedLetter(exampleResult);
     } finally {
       setIsLoading(false);
     }
@@ -103,13 +97,13 @@ Hormat saya,
     try {
       await navigator.clipboard.writeText(generatedLetter);
       toast({
-        title: "Copied!",
-        description: "Cover letter copied to clipboard!",
+        title: "Tersalin!",
+        description: "Surat lamaran berhasil disalin ke clipboard!",
       });
     } catch (err) {
       toast({
         title: "Error",
-        description: "Failed to copy to clipboard",
+        description: "Gagal menyalin ke clipboard",
         variant: "destructive",
       });
     }
@@ -133,7 +127,7 @@ Hormat saya,
         <div className="bg-black rounded-2xl shadow-xl p-8 border border-gray-800">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold mb-2">AI Cover Letter Generator</h1>
-            <p className="text-gray-400">Fill in the details below and let AI craft your perfect cover letter</p>
+            <p className="text-gray-400">Isi detail di bawah dan biarkan AI meracik surat lamaran terbaikmu.</p>
             <Badge variant="secondary" className="mt-2 bg-gray-800 text-gray-300">
               Powered by IBM Granite
             </Badge>
@@ -145,55 +139,38 @@ Hormat saya,
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
                   <Briefcase className="mr-2 h-5 w-5" />
-                  Job Information
+                  Informasi Pekerjaan
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-300 mb-2">
-                      Position Applied For *
+                      Posisi yang Dilamar *
                     </label>
-                    <Input
-                      id="jobTitle"
-                      type="text"
-                      value={formData.jobTitle}
-                      onChange={(e) => updateFormData('jobTitle', e.target.value)}
-                      placeholder="e.g., Frontend Developer"
-                      className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white"
-                      required
-                    />
+                    <Input id="jobTitle" type="text" value={formData.jobTitle} onChange={(e) => updateFormData('jobTitle', e.target.value)} placeholder="Contoh: Frontend Developer" className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white" required />
                   </div>
-                  
                   <div>
                     <label htmlFor="companyName" className="block text-sm font-medium text-gray-300 mb-2">
-                      Company Name
+                      Nama Perusahaan
                     </label>
-                    <Input
-                      id="companyName"
-                      type="text"
-                      value={formData.companyName}
-                      onChange={(e) => updateFormData('companyName', e.target.value)}
-                      placeholder="e.g., Tech Corp Indonesia"
-                      className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white"
-                    />
+                    <Input id="companyName" type="text" value={formData.companyName} onChange={(e) => updateFormData('companyName', e.target.value)} placeholder="Contoh: PT Teknologi Maju" className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white" />
                   </div>
                 </div>
-                
                 <div>
                   <label htmlFor="experienceLevel" className="block text-sm font-medium text-gray-300 mb-2">
-                    Experience Level *
+                    Tingkat Pengalaman *
                   </label>
                   <Select value={formData.experienceLevel} onValueChange={(value) => updateFormData('experienceLevel', value)}>
                     <SelectTrigger className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white">
-                      <SelectValue placeholder="Select your experience level" />
+                      <SelectValue placeholder="Pilih tingkat pengalamanmu" />
                     </SelectTrigger>
                     <SelectContent className="bg-gray-800 border-gray-600">
                       <SelectItem value="fresh-graduate">Fresh Graduate</SelectItem>
-                      <SelectItem value="1-3-years">1-3 Years Experience</SelectItem>
-                      <SelectItem value="3-5-years">3-5 Years Experience</SelectItem>
-                      <SelectItem value="5-plus-years">5+ Years Experience</SelectItem>
-                      <SelectItem value="senior">Senior Professional</SelectItem>
+                      <SelectItem value="1-3-years">1-3 Tahun Pengalaman</SelectItem>
+                      <SelectItem value="3-5-years">3-5 Tahun Pengalaman</SelectItem>
+                      <SelectItem value="5-plus-years">5+ Tahun Pengalaman</SelectItem>
+                      <SelectItem value="senior">Profesional Senior</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -205,51 +182,27 @@ Hormat saya,
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
                   <User className="mr-2 h-5 w-5" />
-                  Your Background
+                  Latar Belakangmu
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <label htmlFor="mySkills" className="block text-sm font-medium text-gray-300 mb-2">
-                    Key Skills & Technologies *
+                    Keahlian & Teknologi Utama *
                   </label>
-                  <Textarea
-                    id="mySkills"
-                    value={formData.mySkills}
-                    onChange={(e) => updateFormData('mySkills', e.target.value)}
-                    placeholder="e.g., React, TypeScript, Node.js, Problem Solving, Team Leadership"
-                    className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white"
-                    rows={3}
-                    required
-                  />
+                  <Textarea id="mySkills" value={formData.mySkills} onChange={(e) => updateFormData('mySkills', e.target.value)} placeholder="Contoh: React, TypeScript, Node.js, Problem Solving, Team Leadership" className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white" rows={3} required />
                 </div>
-                
                 <div>
                   <label htmlFor="education" className="block text-sm font-medium text-gray-300 mb-2">
-                    Education Background
+                    Latar Belakang Pendidikan
                   </label>
-                  <Input
-                    id="education"
-                    type="text"
-                    value={formData.education}
-                    onChange={(e) => updateFormData('education', e.target.value)}
-                    placeholder="e.g., Computer Science, Informatics Engineering"
-                    className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white"
-                  />
+                  <Input id="education" type="text" value={formData.education} onChange={(e) => updateFormData('education', e.target.value)} placeholder="Contoh: S1 Teknik Informatika" className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white" />
                 </div>
-                
                 <div>
                   <label htmlFor="achievements" className="block text-sm font-medium text-gray-300 mb-2">
-                    Key Achievements / Projects
+                    Pencapaian / Proyek Penting
                   </label>
-                  <Textarea
-                    id="achievements"
-                    value={formData.achievements}
-                    onChange={(e) => updateFormData('achievements', e.target.value)}
-                    placeholder="e.g., Led a team of 5 developers, Built an e-commerce platform with 10k+ users"
-                    className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white"
-                    rows={3}
-                  />
+                  <Textarea id="achievements" value={formData.achievements} onChange={(e) => updateFormData('achievements', e.target.value)} placeholder="Contoh: Memimpin tim 5 orang, membangun platform e-commerce dengan 10k+ pengguna" className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white" rows={3} />
                 </div>
               </CardContent>
             </Card>
@@ -259,41 +212,29 @@ Hormat saya,
               <CardHeader>
                 <CardTitle className="flex items-center text-white">
                   <GraduationCap className="mr-2 h-5 w-5" />
-                  Motivation
+                  Motivasi
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div>
                   <label htmlFor="whyInterested" className="block text-sm font-medium text-gray-300 mb-2">
-                    Why are you interested in this company/position?
+                    Kenapa kamu tertarik dengan perusahaan/posisi ini?
                   </label>
-                  <Textarea
-                    id="whyInterested"
-                    value={formData.whyInterested}
-                    onChange={(e) => updateFormData('whyInterested', e.target.value)}
-                    placeholder="e.g., I'm excited about the company's innovative approach to technology and its impact on society"
-                    className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white"
-                    rows={3}
-                  />
+                  <Textarea id="whyInterested" value={formData.whyInterested} onChange={(e) => updateFormData('whyInterested', e.target.value)} placeholder="Contoh: Saya tertarik dengan pendekatan inovatif perusahaan terhadap teknologi..." className="bg-gray-800 border-gray-600 focus:border-white focus:ring-white text-white" rows={3} />
                 </div>
               </CardContent>
             </Card>
             
-            <Button
-              type="submit"
-              size="lg"
-              className="w-full bg-white hover:bg-gray-200 text-black font-bold text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
-              disabled={isLoading || !isFormValid}
-            >
+            <Button type="submit" size="lg" className="w-full bg-white hover:bg-gray-200 text-black font-bold text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50" disabled={isLoading || !isFormValid}>
               {isLoading ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-2 border-gray-600 border-t-black mr-2"></div>
-                  Generating Cover Letter...
+                  Sedang Meracik...
                 </>
               ) : (
                 <>
                   <Sparkles className="mr-2 h-5 w-5" />
-                  Generate Cover Letter
+                  Buat Surat Lamaran
                 </>
               )}
             </Button>
@@ -305,25 +246,16 @@ Hormat saya,
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center text-white">
                     <FileText className="mr-2 h-5 w-5" />
-                    Generated Cover Letter
+                    Draf Surat Lamaran
                   </CardTitle>
                   <div className="flex space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={copyToClipboard}
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                    >
+                    <Button variant="outline" size="sm" onClick={copyToClipboard} className="border-gray-600 text-gray-300 hover:bg-gray-700">
                       <Copy className="mr-2 h-4 w-4" />
-                      Copy
+                      Salin
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                    >
+                    <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700">
                       <Download className="mr-2 h-4 w-4" />
-                      Download
+                      Unduh
                     </Button>
                   </div>
                 </div>
