@@ -37,30 +37,34 @@ const AssistantPage = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // --- PERUBAHAN UTAMA DI SINI ---
-  // Fungsi ini sekarang memberikan instruksi yang jauh lebih detail kepada AI.
+  // Enhanced AI Prompt - More Natural & Conversational
   const buildAIPrompt = () => {
     return `
-Anda adalah seorang konsultan karier dan penulis ahli yang berspesialisasi dalam surat lamaran kerja (cover letter) untuk pasar profesional di Indonesia. Tugas Anda adalah membuat draf surat lamaran yang formal, meyakinkan, dan sangat personal berdasarkan informasi berikut.
+Tulis surat lamaran kerja dalam Bahasa Indonesia yang natural, personal, dan meyakinkan. HINDARI template formal yang kaku.
 
-**Informasi Kandidat:**
-- **Posisi yang Dilamar:** ${formData.jobTitle}
-- **Nama Perusahaan:** ${formData.companyName || 'Perusahaan yang dituju'}
-- **Tingkat Pengalaman:** ${formData.experienceLevel}
-- **Keahlian Utama:** ${formData.mySkills}
-- **Latar Belakang Pendidikan:** ${formData.education}
-- **Pencapaian Penting:** ${formData.achievements}
-- **Alasan Ketertarikan:** ${formData.whyInterested}
+**Data Kandidat:**
+- Posisi: ${formData.jobTitle}
+- Perusahaan: ${formData.companyName || '[Nama Perusahaan]'}
+- Pengalaman: ${formData.experienceLevel}
+- Keahlian: ${formData.mySkills}
+- Pendidikan: ${formData.education || 'Tidak disebutkan'}
+- Pencapaian: ${formData.achievements || 'Tidak disebutkan'}
+- Motivasi: ${formData.whyInterested || 'Tidak disebutkan'}
 
-**Instruksi Penulisan:**
-1.  **Gaya Bahasa:** Gunakan Bahasa Indonesia yang formal, profesional, dan modern. Nada tulisan harus percaya diri namun tetap rendah hati.
-2.  **Struktur Naratif:** Jangan hanya mendaftar keahlian. Rangkai sebuah narasi yang menghubungkan keahlian (${formData.mySkills}) dengan kebutuhan spesifik untuk posisi ${formData.jobTitle}.
-3.  **Tonjolkan Pencapaian:** Gunakan pencapaian (${formData.achievements}) sebagai bukti nyata dari kemampuan kandidat. Jelaskan secara singkat bagaimana pencapaian tersebut menunjukkan nilai yang bisa dibawa ke perusahaan.
-4.  **Personalisasi:** Jika nama perusahaan (${formData.companyName}) disebutkan, personalisasi surat tersebut. Sebutkan alasan ketertarikan (${formData.whyInterested}) untuk menunjukkan bahwa kandidat telah melakukan riset.
-5.  **Hindari Kalimat Generik:** Jangan gunakan frasa-frasa klise seperti "Saya adalah seorang pekerja keras". Ganti dengan contoh nyata dari informasi yang diberikan.
-6.  **Format:** Hasilkan hanya konten surat lamaran, mulai dari "Dengan hormat," hingga "Hormat saya,".
+**ATURAN PENULISAN PENTING:**
+1. **JANGAN** gunakan placeholder seperti "[Nama Kandidat]" atau "[Universitas]" - langsung tulis tanpa placeholder
+2. **JANGAN** gunakan format surat formal yang kaku
+3. **GUNAKAN** gaya percakapan yang warm tapi profesional
+4. **FOKUS** pada storytelling - ceritakan bagaimana pengalaman dan skill relevan dengan posisi ini
+5. **SPESIFIK** - gunakan detail nyata dari informasi yang diberikan, jangan generic
+6. **NATURAL** - tulis seperti seseorang yang benar-benar tertarik dengan pekerjaan ini
 
-Tolong hasilkan draf terbaik yang akan membuat manajer perekrutan terkesan.
+**STRUKTUR:**
+- Pembuka: Sapa dengan natural, langsung sebutkan posisi yang diminati
+- Body: Ceritakan pengalaman dan skill dengan cara yang engaging
+- Penutup: Ekspresikan antusiasme untuk next step
+
+Tulis dalam tone yang confident tapi humble, seperti ngobrol sama hiring manager yang friendly. Jangan terlalu formal dan kaku!
 `;
   };
 
