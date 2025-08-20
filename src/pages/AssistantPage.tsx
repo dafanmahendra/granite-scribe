@@ -37,14 +37,33 @@ const AssistantPage = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // --- STRATEGI BARU: FEW-SHOT PROMPTING ---
+  // Memberikan contoh perfect agar AI meniru gayanya, bukan memberi banyak aturan
   const buildAIPrompt = () => {
     return `
-Anda adalah seorang konsultan karier eksekutif dan penulis surat lamaran kerja profesional untuk pasar korporat di Indonesia.
+Anda adalah seorang penulis profesional yang ahli dalam membuat surat lamaran kerja formal dalam Bahasa Indonesia.
+Tugas Anda adalah menulis surat lamaran baru berdasarkan "DATA KANDIDAT BARU" dengan meniru gaya bahasa dan struktur dari "CONTOH SURAT LAMARAN YANG BAIK".
 
-**Tugas Utama:**
-Buat draf surat lamaran kerja yang sangat formal, berwibawa, dan berdampak tinggi berdasarkan informasi berikut.
+---
+**CONTOH SURAT LAMARAN YANG BAIK:**
 
-**Informasi Kandidat:**
+Dengan hormat,
+
+Sehubungan dengan informasi yang saya peroleh mengenai lowongan pada posisi Senior Data Analyst di PT Analitika Data Indonesia, dengan ini saya bermaksud untuk mengajukan lamaran.
+
+Sebagai seorang profesional dengan pengalaman lebih dari lima tahun di bidang analisis data, saya memiliki rekam jejak yang terbukti dalam menerjemahkan data kompleks menjadi wawasan bisnis yang strategis. Latar belakang pendidikan saya di bidang Statistika memberikan fondasi kuantitatif yang kuat, yang saya padukan dengan keahlian teknis pada SQL, Python (Pandas, Scikit-learn), dan Tableau.
+
+Pada peran saya sebelumnya di PT Visi Digital, saya berhasil memimpin proyek analisis prediktif yang meningkatkan efisiensi pemasaran sebesar 20%. Pencapaian ini menunjukkan kemampuan saya untuk tidak hanya mengolah data, tetapi juga menggunakannya untuk mendorong hasil bisnis yang nyata.
+
+Saya sangat tertarik untuk bergabung dengan PT Analitika Data Indonesia karena reputasi perusahaan dalam inovasi dan budaya kerja yang berbasis data. Saya yakin keahlian dan semangat saya untuk terus belajar akan menjadi aset berharga bagi tim Anda.
+
+Terima kasih atas waktu dan perhatian Bapak/Ibu. Saya sangat berharap dapat berdiskusi lebih lanjut mengenai bagaimana saya dapat memberikan kontribusi bagi kesuksesan perusahaan.
+
+Hormat saya,
+[Nama Kandidat]
+---
+
+**DATA KANDIDAT BARU:**
 - Posisi yang Dilamar: ${formData.jobTitle}
 - Nama Perusahaan: ${formData.companyName || 'Perusahaan yang dituju'}
 - Tingkat Pengalaman: ${formData.experienceLevel}
@@ -53,19 +72,8 @@ Buat draf surat lamaran kerja yang sangat formal, berwibawa, dan berdampak tingg
 - Pencapaian Penting: ${formData.achievements}
 - Alasan Ketertarikan: ${formData.whyInterested}
 
-**ATURAN PENULISAN (SANGAT PENTING):**
-1.  **Gaya Bahasa:** Gunakan Bahasa Indonesia yang sangat formal dan baku. Nada tulisan harus profesional, percaya diri, dan menunjukkan kelas eksekutif.
-2.  **Struktur Kalimat:** Gunakan struktur kalimat yang kompleks dan matang. Hindari kalimat pendek dan terputus-putus.
-3.  **Hubungkan Konsep:** Jangan hanya menyebutkan data. Buat narasi yang secara cerdas menghubungkan pencapaian (${formData.achievements}) dengan kebutuhan posisi (${formData.jobTitle}).
-4.  **Personalisasi Mendalam:** Integrasikan alasan ketertarikan (${formData.whyInterested}) ke dalam paragraf untuk menunjukkan riset dan minat yang tulus.
-
-**LARANGAN (JANGAN LAKUKAN INI):**
-- **JANGAN** gunakan bahasa gaul, sapaan informal seperti "Halo!", "bro", atau frasa santai lainnya.
-- **JANGAN** gunakan kalimat yang terlalu bersemangat atau emosional seperti "gembira banget".
-- **JANGAN** gunakan kalimat penutup yang santai seperti "Saya tunggu respon yang positif dari pihak kalian". Gunakan penutup yang lebih formal.
-- **JANGAN** membuat kalimat yang terasa seperti template.
-
-Hasilkan hanya konten surat lamaran, mulai dari "Dengan hormat," hingga "Hormat saya,".
+**TUGAS ANDA:**
+Sekarang, tuliskan surat lamaran kerja yang baru untuk "DATA KANDIDAT BARU" dengan gaya bahasa, formalitas, dan struktur yang sama persis seperti "CONTOH SURAT LAMARAN YANG BAIK". Hasilkan hanya konten suratnya saja.
 `;
   };
 
@@ -78,7 +86,7 @@ Hasilkan hanya konten surat lamaran, mulai dari "Dengan hormat," hingga "Hormat 
       const prompt = buildAIPrompt();
       const response = await generateText(prompt);
       
-      if (response.success) {
+      if (response.success && response.text) {
         setGeneratedLetter(response.text);
         toast({
           title: "Berhasil!",
