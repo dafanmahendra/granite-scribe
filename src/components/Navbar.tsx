@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Brain, History } from "lucide-react";
+import { Menu, X, Brain, History, Home } from "lucide-react";
 
 interface NavbarProps {
   onToggleHistory: () => void;
   isHistoryOpen: boolean;
+  onGoHome?: () => void; // Optional prop for navigation back to landing
 }
 
-const Navbar = ({ onToggleHistory, isHistoryOpen }: NavbarProps) => {
+const Navbar = ({ onToggleHistory, isHistoryOpen, onGoHome }: NavbarProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -27,6 +28,17 @@ const Navbar = ({ onToggleHistory, isHistoryOpen }: NavbarProps) => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
+            {onGoHome && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onGoHome}
+                className="hover:bg-primary/5"
+              >
+                <Home className="h-4 w-4 mr-2" />
+                Home
+              </Button>
+            )}
             <Button
               variant="outline"
               size="sm"
