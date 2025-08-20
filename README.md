@@ -223,4 +223,4 @@ This project is part of an IBM Capstone program and is intended for educational 
 
 ---
 
-**Built with ❤️ for IBM Capstone Program**
+**Built for IBM Capstone Program**
