@@ -37,35 +37,38 @@ const AssistantPage = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Enhanced AI Prompt - More Natural & Conversational
+  // Ultra Natural AI Prompt - Anti-Kaku & Anti-Template
   const buildAIPrompt = () => {
     return `
-Tulis surat lamaran kerja dalam Bahasa Indonesia yang natural, personal, dan meyakinkan. HINDARI template formal yang kaku.
+TUGAS: Tulis email/surat lamaran kerja yang terdengar seperti ditulis oleh manusia asli yang genuinely excited tentang pekerjaan ini.
 
-**Data Kandidat:**
-- Posisi: ${formData.jobTitle}
-- Perusahaan: ${formData.companyName || '[Nama Perusahaan]'}
-- Pengalaman: ${formData.experienceLevel}
-- Keahlian: ${formData.mySkills}
-- Pendidikan: ${formData.education || 'Tidak disebutkan'}
-- Pencapaian: ${formData.achievements || 'Tidak disebutkan'}
-- Motivasi: ${formData.whyInterested || 'Tidak disebutkan'}
+DATA:
+Posisi: ${formData.jobTitle}
+Perusahaan: ${formData.companyName || 'perusahaan ini'}
+Level: ${formData.experienceLevel}
+Skills: ${formData.mySkills}
+Pendidikan: ${formData.education || ''}
+Achievements: ${formData.achievements || ''}
+Motivasi: ${formData.whyInterested || ''}
 
-**ATURAN PENULISAN PENTING:**
-1. **JANGAN** gunakan placeholder seperti "[Nama Kandidat]" atau "[Universitas]" - langsung tulis tanpa placeholder
-2. **JANGAN** gunakan format surat formal yang kaku
-3. **GUNAKAN** gaya percakapan yang warm tapi profesional
-4. **FOKUS** pada storytelling - ceritakan bagaimana pengalaman dan skill relevan dengan posisi ini
-5. **SPESIFIK** - gunakan detail nyata dari informasi yang diberikan, jangan generic
-6. **NATURAL** - tulis seperti seseorang yang benar-benar tertarik dengan pekerjaan ini
+PANTANGAN MUTLAK:
+❌ JANGAN pakai "[Nama]", "[Universitas]", atau placeholder apapun
+❌ JANGAN mulai dengan "Dengan hormat" atau format surat resmi
+❌ JANGAN tulis seperti robot atau template
+❌ JANGAN pakai "Tuan/Puan" atau bahasa terlalu formal
 
-**STRUKTUR:**
-- Pembuka: Sapa dengan natural, langsung sebutkan posisi yang diminati
-- Body: Ceritakan pengalaman dan skill dengan cara yang engaging
-- Penutup: Ekspresikan antusiasme untuk next step
+HARUS:
+✅ Mulai natural kayak email biasa: "Halo!" atau "Hi!" 
+✅ Langsung to-the-point tentang posisi yang diinginkan
+✅ Cerita personal experience dengan engaging
+✅ Tulis seperti lagi ngobrol dengan teman yang kerja di HR
+✅ Show enthusiasm yang genuine
+✅ End dengan simple dan friendly
 
-Tulis dalam tone yang confident tapi humble, seperti ngobrol sama hiring manager yang friendly. Jangan terlalu formal dan kaku!
-`;
+CONTOH TONE YANG DIINGINKAN:
+"Halo! Saya liat ada opening untuk posisi [job] di [company] dan jujur saya langsung excited banget. Dari pengalaman saya di [specific experience], saya rasa background saya cocok banget dengan yang kalian cari..."
+
+Tulis dalam Indonesian yang natural, conversational, tapi tetap professional. Seperti ngobrol dengan hiring manager yang cool dan approachable!`;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
