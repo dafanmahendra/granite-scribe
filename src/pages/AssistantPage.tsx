@@ -250,11 +250,11 @@ Sekarang, tuliskan surat lamaran kerja yang baru untuk "DATA KANDIDAT BARU" deng
           <div className="bg-black rounded-lg p-8 w-full pt-16">
             <div className="text-center mb-10">
               <h1 className="text-3xl sm:text-4xl font-light tracking-wider mb-2 uppercase">AI Cover Letter</h1>
-            <p className="text-foreground-subtle text-sm sm:text-base">Provide the details below to generate a professional cover letter.</p>
-            <Badge variant="outline" className="mt-4 border-border-subtle text-foreground-subtle font-normal">
-              Powered by IBM Granite
-            </Badge>
-          </div>
+              <p className="text-foreground-subtle text-sm sm:text-base">Provide the details below to generate a professional cover letter.</p>
+              <Badge variant="outline" className="mt-4 border-border-subtle text-foreground-subtle font-normal">
+                Powered by IBM Granite
+              </Badge>
+            </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Sections are now more minimal */}
@@ -380,6 +380,7 @@ Sekarang, tuliskan surat lamaran kerja yang baru untuk "DATA KANDIDAT BARU" deng
         </div>
       </div>
     </main>
+    </>
   );
 };
 

@@ -2,76 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-/* clarissabuilds.com Inspired Monochrome Theme */
+/* Original Beautiful Theme + Jules' History Functionality */
 
 @layer base {
   :root {
-    /* Monochrome Palette */
+    /* Back to Beautiful Dark Theme */
     --background: 0 0% 0%; /* #000000 */
-    --background-surface: 0 0% 4%; /* #0a0a0a */
-    --background-elevated: 0 0% 8%; /* #141414 */
+    --background-surface: 0 0% 6%; /* #0f0f0f */
+    --background-elevated: 0 0% 10%; /* #1a1a1a */
     --foreground: 0 0% 100%; /* #ffffff */
-    --foreground-muted: 0 0% 80%; /* #cccccc */
+    --foreground-muted: 0 0% 70%; /* #b3b3b3 */
     --foreground-subtle: 0 0% 50%; /* #808080 */
 
-    /* Primary colors are now black and white for maximum contrast */
+    /* Restore beautiful accent colors */
     --primary: 0 0% 100%; /* White */
-    --primary-hover: 0 0% 90%; /* Light gray */
+    --primary-hover: 0 0% 85%; /* Light gray */
     --primary-foreground: 0 0% 0%; /* Black */
 
-    /* Surface colors */
-    --card: 0 0% 4%; /* #0a0a0a */
+    /* Card colors with depth */
+    --card: 0 0% 6%; /* #0f0f0f */
     --card-foreground: 0 0% 100%;
-    --card-elevated: 0 0% 8%;
+    --card-elevated: 0 0% 10%;
 
-    /* Input and form elements */
-    --input: 0 0% 4%; /* #0a0a0a */
-    --input-border: 0 0% 20%; /* #333333 */
+    /* Form elements */
+    --input: 0 0% 6%; /* #0f0f0f */
+    --input-border: 0 0% 25%; /* #404040 */
     --input-focus: 0 0% 100%; /* White */
 
-    /* Borders and separators */
-    --border: 0 0% 20%; /* #333333 */
-    --border-subtle: 0 0% 10%; /* #1a1a1a */
+    /* Borders with more contrast */
+    --border: 0 0% 25%; /* #404040 */
+    --border-subtle: 0 0% 15%; /* #262626 */
 
-    /* Status colors - high contrast white */
-    --success: 0 0% 100%;
-    --warning: 0 0% 100%;
-    --error: 0 0% 100%;
+    /* Status colors */
+    --destructive: 0 0% 100%;
+    --destructive-foreground: 0 0% 0%;
+    --secondary: 0 0% 15%; /* #262626 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%; /* #262626 */
+    --muted-foreground: 0 0% 65%; /* #a6a6a6 */
+    --accent: 0 0% 15%; /* #262626 */
+    --accent-foreground: 0 0% 100%;
+    --popover: 0 0% 6%; /* #0f0f0f */
+    --popover-foreground: 0 0% 100%;
 
-    /* Remove all color-based gradients */
-    --gradient-hero: none;
-    --gradient-card: none;
-    --gradient-glow: none;
-
-    /* Remove shadows for a flat, clean design */
-    --shadow-card: none;
-    --shadow-elevated: none;
-    --shadow-glow: none;
-
-    /* Animation */
-    --transition-smooth: all 0.2s ease-in-out;
-    --transition-bounce: all 0.2s ease-in-out;
-
-    /* Sharper corners */
-    --radius: 0.25rem;
+    /* Restore beautiful effects */
+    --gradient-hero: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+    --gradient-card: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    
+    /* Restore shadows for depth */
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    /* Beautiful rounded corners */
+    --radius: 0.75rem;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    /* Solid black background for the body */
-    background: #000000;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    /* Beautiful gradient background for the body */
+    background: var(--gradient-hero);
     min-height: 100vh;
   }
 
-  /* Custom scrollbar - monochrome */
+  /* Beautiful enhanced scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
@@ -80,7 +83,8 @@
 
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--foreground-subtle));
-    border-radius: 3px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -88,20 +92,22 @@
   }
 }
 
-/* Custom animations for enhanced landing page */
+/* Beautiful enhanced animations */
 @keyframes fade-in {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -126,18 +132,31 @@
   }
 }
 
+@keyframes glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
 .animate-fade-in {
-  animation: fade-in 0.6s ease-out forwards;
+  animation: fade-in 0.8s ease-out forwards;
   opacity: 0;
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
+  animation: fade-in-up 1s ease-out forwards;
   opacity: 0;
 }
 
 .animate-bounce-in {
-  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation: bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
 }
 
 /* Smooth scroll behavior */
@@ -145,12 +164,38 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Enhanced button interactions */
+/* Enhanced button interactions with beautiful effects */
 .group:hover .group-hover\\:translate-x-1 {
   transform: translateX(0.25rem);
+  transition: all 0.3s ease;
 }
 
-/* Card hover glow effect */
+/* Card hover with beautiful depth */
 .hover\\:shadow-2xl:hover {
-  box-shadow: 0 25px 50px -12px rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 25px 50px -12px rgba(255, 255, 255, 0.05),
+    0 0 20px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Beautiful history sidebar styles */
+.history-item {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.history-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Utility classes */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
