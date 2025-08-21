@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,8 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Sparkles, Copy, Download, FileText, User, Briefcase, GraduationCap } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import { generateText } from '@/lib/ibm-granite';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 // Komponen untuk Strip Aksen Gradasi - Monokrom
 const AccentStrip = () => (
@@ -18,6 +20,8 @@ const AccentStrip = () => (
 // Halaman Asisten AI dengan Prompt yang sudah di-tuning
 const AssistantPage = () => {
   const navigate = useNavigate();
+  // Untuk "menandai" area hasil yang mau dijadikan PDF
+  const resultCardRef = useRef<HTMLDivElement>(null);
   
   // Form state
   const [formData, setFormData] = useState({
@@ -120,6 +124,39 @@ Sekarang, tuliskan surat lamaran kerja yang baru untuk "DATA KANDIDAT BARU" deng
         variant: "destructive",
       });
     }
+  };
+
+  const handleDownload = () => {
+    // 1. Cari elemen yang sudah kita tandai
+    const input = resultCardRef.current;
+    if (!input) {
+      toast({ title: "Error", description: "Tidak dapat menemukan konten untuk diunduh.", variant: "destructive" });
+      return;
+    }
+
+    toast({ title: "Membuat PDF...", description: "Mohon tunggu sebentar." });
+
+    // 2. Ambil "screenshot" dari elemen tersebut
+    html2canvas(input, {
+      backgroundColor: '#1a1a1a', // Warna background yang mirip UI
+      scale: 2, // Meningkatkan resolusi
+    }).then(canvas => {
+      // 3. Masukkan screenshot ke dalam file PDF
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      
+      // Smart filename berdasarkan posisi & company
+      const filename = `surat-lamaran-${formData.jobTitle.replace(/\s/g, '-')}-${formData.companyName.replace(/\s/g, '-') || 'perusahaan'}.pdf`;
+      pdf.save(filename);
+      
+      toast({ title: "Berhasil!", description: "PDF berhasil diunduh!" });
+    }).catch(error => {
+      toast({ title: "Error", description: "Gagal membuat PDF. Silakan coba lagi.", variant: "destructive" });
+    });
   };
 
   const isFormValid = formData.jobTitle && formData.mySkills && formData.experienceLevel;
@@ -254,7 +291,7 @@ Sekarang, tuliskan surat lamaran kerja yang baru untuk "DATA KANDIDAT BARU" deng
           </form>
 
           {generatedLetter && (
-            <Card className="mt-8 bg-gray-900 border-gray-700">
+            <Card className="mt-8 bg-gray-900 border-gray-700" ref={resultCardRef}>
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="flex items-center text-white">
@@ -266,7 +303,7 @@ Sekarang, tuliskan surat lamaran kerja yang baru untuk "DATA KANDIDAT BARU" deng
                       <Copy className="mr-2 h-4 w-4" />
                       Salin
                     </Button>
-                    <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-gray-700">
+                    <Button variant="outline" size="sm" onClick={handleDownload} className="border-gray-600 text-gray-300 hover:bg-gray-700">
                       <Download className="mr-2 h-4 w-4" />
                       Unduh
                     </Button>
