@@ -2,37 +2,67 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Target, Users, TrendingUp } from 'lucide-react';
 
+// Komponen untuk Strip Aksen Gradasi - Monokrom
+const AccentStrip = () => (
+  <div className="h-1 w-full bg-gradient-to-r from-white via-gray-500 to-black" />
+);
+
+// --- PERUBAHAN UTAMA ---
+// Hero Section sekarang menggunakan gambar latar blueprint yang elegan.
 const HeroSection = () => {
   const navigate = useNavigate();
 
+  const handleGetStarted = () => {
+    navigate('/assistant');
+  };
+
+  // URL Gambar Latar dari Pexels (Gratis untuk digunakan)
+  const backgroundImageUrl = 'https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
+
   return (
-    <section className="text-center py-24 sm:py-32 lg:py-40 bg-black">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-light tracking-wider uppercase text-foreground mb-4">
-          AI Cover Letter
+    <section
+      className="text-center py-32 bg-cover bg-center bg-no-repeat relative"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${backgroundImageUrl})`
+      }}
+    >
+      <div className="container mx-auto px-4 relative z-10">
+        <Badge variant="secondary" className="mb-6 bg-gray-800 text-gray-300 border-gray-700">
+          SDG #8 Initiative
+        </Badge>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-white">
+          Dapatkan Pekerjaan Impianmu
         </h1>
-        <p className="text-lg md:text-xl max-w-3xl mx-auto text-foreground-subtle mb-8 font-light">
-          Generate professional, AI-powered cover letters in seconds.
-          Clean, minimal, and effective.
+        <p className="text-lg md:text-xl mb-8 max-w-4xl mx-auto text-gray-300 leading-relaxed">
+          <span className="block mb-4">
+            <strong className="text-white">Sustainable Development Goals (SDGs)</strong> adalah 17 tujuan global PBB untuk menciptakan dunia yang lebih baik pada tahun 2030.
+          </span>
+          <span className="block mb-4">
+            Kami berkomitmen pada <strong className="text-white bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent">SDG #8: Decent Work and Economic Growth</strong> - memastikan setiap orang memiliki akses ke pekerjaan yang layak dan produktif.
+          </span>
+          <span className="block">
+            Dengan alat bantu AI untuk membuat surat lamaran kerja yang profesional, kami membantu menciptakan peluang kerja yang setara dan mendorong pertumbuhan ekonomi yang inklusif.
+          </span>
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button 
-            onClick={() => navigate('/assistant')}
+            onClick={handleGetStarted}
             size="lg"
-            className="bg-primary hover:bg-primary-hover text-primary-foreground font-light py-3 px-8 text-base tracking-wider uppercase transition-all duration-200 transform hover:scale-[1.01]"
+            className="bg-white hover:bg-gray-200 text-black font-bold py-3 px-8 text-lg transition-all duration-300 transform hover:scale-105"
           >
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4" />
+            Mulai Sekarang
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <Button 
             variant="outline" 
             size="lg"
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
-            className="border-border-subtle text-foreground-muted hover:bg-background-surface hover:text-foreground"
+            className="border-white text-white hover:bg-white hover:text-black"
           >
-            Learn More
+            Pelajari Lebih Lanjut
           </Button>
         </div>
       </div>
@@ -40,41 +70,46 @@ const HeroSection = () => {
   );
 };
 
-const FeaturesSection = () => {
+// SDG Info Section dengan tema monokrom
+const SdgInfo = () => {
   const features = [
-    { icon: Target, title: "Professional Tone", description: "Our AI is tuned to generate formal, professional cover letters suitable for any industry." },
-    { icon: Users, title: "Increase Confidence", description: "A well-prepared letter boosts your confidence and makes a great first impression." },
-    { icon: TrendingUp, title: "Improve Efficiency", description: "Save time and effort, allowing you to apply for more jobs and focus on interviews." }
+    { icon: Target, title: "Surat Lamaran Profesional", description: "AI kami akan membantumu membuat draf surat lamaran yang menarik perhatian HRD." },
+    { icon: Users, title: "Meningkatkan Kepercayaan Diri", description: "Dengan persiapan matang, kamu akan lebih percaya diri saat melamar kerja." },
+    { icon: TrendingUp, title: "Mendukung Ekonomi", description: "Setiap orang yang mendapat pekerjaan layak turut berkontribusi pada pertumbuhan ekonomi." }
   ];
 
   return (
-    <section id="features" className="py-20 bg-background-surface">
+    <section id="features" className="py-20 bg-black">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light tracking-wider uppercase text-foreground mb-3">
-            Why Use Our Generator?
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            Misi Kami: SDG #8
           </h2>
-          <p className="text-md md:text-lg max-w-3xl mx-auto text-foreground-subtle font-light">
-            We believe everyone deserves a fair chance. Our tool is a small step towards leveling the playing field.
+          <p className="text-md md:text-lg max-w-3xl mx-auto text-gray-400 leading-relaxed">
+            Kami percaya semua orang berhak mendapatkan pekerjaan yang layak. Aplikasi ini adalah langkah kecil kami untuk membantu para pencari kerja bersaing secara adil.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border-subtle">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <div
+            <Card
               key={index}
-              className="bg-background-surface p-8 text-center"
+              className="bg-black border-gray-800 hover:border-white transition-all duration-300 hover:shadow-lg group"
             >
-              <div className="mx-auto w-10 h-10 bg-background-elevated rounded-sm flex items-center justify-center mb-5">
-                <feature.icon className="h-5 w-5 text-foreground" />
-              </div>
-              <h3 className="text-xl font-normal tracking-wide text-foreground mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-foreground-subtle font-light leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
+              <CardHeader className="text-center">
+                <div className="mx-auto w-12 h-12 bg-gray-800/50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-white transition-colors">
+                  <feature.icon className="h-6 w-6 text-white group-hover:text-black" />
+                </div>
+                <CardTitle className="text-xl font-bold text-white">
+                  {feature.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-400 text-center leading-relaxed">
+                  {feature.description}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
@@ -82,22 +117,23 @@ const FeaturesSection = () => {
   );
 };
 
+// Navbar dengan tema monokrom
 const LandingNavbar = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="bg-black/80 backdrop-blur-sm p-4 sticky top-0 z-50 border-b border-border-subtle">
+    <nav className="bg-black/80 backdrop-blur-md p-4 sticky top-0 z-50 border-b border-gray-800">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate('/')}>
-           <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xs">AI</span>
+        <div className="flex items-center space-x-3">
+           <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+            <span className="text-black font-bold text-sm">AI</span>
           </div>
-          <span className="text-lg font-light tracking-wide text-foreground">Cover Letter</span>
+          <span className="text-xl font-bold text-white">Granite Scribe</span>
         </div>
         <Button 
           variant="ghost" 
           onClick={() => navigate('/assistant')}
-          className="text-foreground-muted hover:bg-background-surface hover:text-foreground"
+          className="text-white hover:bg-gray-800 hover:text-white"
         >
           Launch App
         </Button>
@@ -106,24 +142,30 @@ const LandingNavbar = () => {
   );
 };
 
+// Footer dengan tema monokrom
 const LandingFooter = () => (
-  <footer className="bg-black border-t border-border-subtle">
-    <div className="container mx-auto px-4 py-6">
+  <footer className="bg-black border-t border-gray-800">
+    <div className="container mx-auto px-4 py-8">
       <div className="text-center">
-        <p className="text-foreground-subtle text-sm font-light">
-          &copy; 2025 AI Cover Letter. All rights reserved.
+        <p className="text-gray-500 mb-2">
+          &copy; 2025 Granite Scribe
+        </p>
+        <p className="text-sm text-gray-600">
+          Supporting UN Sustainable Development Goal #8: Decent Work and Economic Growth
         </p>
       </div>
     </div>
   </footer>
 );
 
+// Komponen utama LandingPage
 const LandingPage = () => {
   return (
     <main className="min-h-screen bg-black">
+      <AccentStrip />
       <LandingNavbar />
       <HeroSection />
-      <FeaturesSection />
+      <SdgInfo />
       <LandingFooter />
     </main>
   );
