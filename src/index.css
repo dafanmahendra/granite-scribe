@@ -2,57 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Netflix-inspired Dark Theme Design System */
+/* clarissabuilds.com Inspired Monochrome Theme */
 
 @layer base {
   :root {
-    /* Netflix Dark Theme Colors */
-    --background: 0 0% 0%; /* Pure black */
-    --background-surface: 0 0% 8%; /* Dark gray surface */
-    --background-elevated: 0 0% 12%; /* Slightly elevated surface */
-    --foreground: 0 0% 100%; /* Pure white text */
-    --foreground-muted: 0 0% 70%; /* Muted white text */
-    --foreground-subtle: 0 0% 50%; /* Subtle text */
+    /* Monochrome Palette */
+    --background: 0 0% 0%; /* #000000 */
+    --background-surface: 0 0% 4%; /* #0a0a0a */
+    --background-elevated: 0 0% 8%; /* #141414 */
+    --foreground: 0 0% 100%; /* #ffffff */
+    --foreground-muted: 0 0% 80%; /* #cccccc */
+    --foreground-subtle: 0 0% 50%; /* #808080 */
 
-    /* Netflix Red Primary */
-    --primary: 348 86% 46%; /* Netflix red #E50914 */
-    --primary-hover: 348 86% 40%; /* Darker red on hover */
-    --primary-foreground: 0 0% 100%;
+    /* Primary colors are now black and white for maximum contrast */
+    --primary: 0 0% 100%; /* White */
+    --primary-hover: 0 0% 90%; /* Light gray */
+    --primary-foreground: 0 0% 0%; /* Black */
 
     /* Surface colors */
-    --card: 0 0% 8%;
+    --card: 0 0% 4%; /* #0a0a0a */
     --card-foreground: 0 0% 100%;
-    --card-elevated: 0 0% 12%;
+    --card-elevated: 0 0% 8%;
 
     /* Input and form elements */
-    --input: 0 0% 15%;
-    --input-border: 0 0% 25%;
-    --input-focus: 348 86% 46%;
+    --input: 0 0% 4%; /* #0a0a0a */
+    --input-border: 0 0% 20%; /* #333333 */
+    --input-focus: 0 0% 100%; /* White */
 
     /* Borders and separators */
-    --border: 0 0% 15%;
-    --border-subtle: 0 0% 10%;
+    --border: 0 0% 20%; /* #333333 */
+    --border-subtle: 0 0% 10%; /* #1a1a1a */
 
-    /* Status colors */
-    --success: 142 76% 36%;
-    --warning: 38 92% 50%;
-    --error: 0 84% 60%;
+    /* Status colors - high contrast white */
+    --success: 0 0% 100%;
+    --warning: 0 0% 100%;
+    --error: 0 0% 100%;
 
-    /* Netflix-inspired gradients */
-    --gradient-hero: linear-gradient(135deg, rgba(229, 9, 20, 0.8) 0%, rgba(0, 0, 0, 0.8) 100%);
-    --gradient-card: linear-gradient(145deg, rgba(20, 20, 20, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
-    --gradient-glow: radial-gradient(circle at center, rgba(229, 9, 20, 0.3) 0%, transparent 70%);
+    /* Remove all color-based gradients */
+    --gradient-hero: none;
+    --gradient-card: none;
+    --gradient-glow: none;
 
-    /* Shadows */
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.7);
-    --shadow-glow: 0 0 30px rgba(229, 9, 20, 0.3);
+    /* Remove shadows for a flat, clean design */
+    --shadow-card: none;
+    --shadow-elevated: none;
+    --shadow-glow: none;
 
     /* Animation */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.2s ease-in-out;
+    --transition-bounce: all 0.2s ease-in-out;
 
-    --radius: 0.5rem;
+    /* Sharper corners */
+    --radius: 0.25rem;
   }
 }
 
@@ -63,26 +64,27 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+    /* Solid black background for the body */
+    background: #000000;
     min-height: 100vh;
   }
 
-  /* Custom scrollbar */
+  /* Custom scrollbar - monochrome */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background-surface));
+    background: hsl(var(--background));
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary));
-    border-radius: 4px;
+    background: hsl(var(--foreground-subtle));
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary-hover));
+    background: hsl(var(--foreground-muted));
   }
 }
 

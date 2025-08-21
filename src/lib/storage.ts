@@ -5,6 +5,7 @@ const STORAGE_KEYS = {
   CHAT_SESSIONS: "ibm_granite_chat_sessions",
   CURRENT_SESSION: "ibm_granite_current_session",
   USER_PREFERENCES: "ibm_granite_user_preferences",
+  COVER_LETTER_HISTORY: "cover_letter_history",
 } as const;
 
 export interface UserPreferences {
@@ -193,4 +194,67 @@ export function clearAllData(): void {
   } catch (error) {
     console.error("Failed to clear data:", error);
   }
+}
+
+// --- Cover Letter History ---
+
+export interface SavedApplication {
+  id: string;
+  jobTitle: string;
+  companyName: string;
+  mySkills: string;
+  experienceLevel: string;
+  education: string;
+  whyInterested: string;
+  achievements: string;
+  generatedLetter: string;
+  createdAt: string; // ISO string
+}
+
+/**
+ * Load all saved cover letters from localStorage
+ */
+export function loadCoverLetters(): SavedApplication[] {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEYS.COVER_LETTER_HISTORY);
+    if (!stored) return [];
+    return JSON.parse(stored) as SavedApplication[];
+  } catch (error) {
+    console.error("Failed to load cover letters:", error);
+    return [];
+  }
+}
+
+/**
+ * Save all cover letters to localStorage
+ */
+function saveAllCoverLetters(applications: SavedApplication[]): void {
+  try {
+    localStorage.setItem(STORAGE_KEYS.COVER_LETTER_HISTORY, JSON.stringify(applications));
+  } catch (error) {
+    console.error("Failed to save cover letters:", error);
+  }
+}
+
+/**
+ * Add a new cover letter to the history
+ */
+export function saveCoverLetter(application: Omit<SavedApplication, 'id' | 'createdAt'>): void {
+  const letters = loadCoverLetters();
+  const newLetter: SavedApplication = {
+    ...application,
+    id: `cl_${new Date().getTime()}`,
+    createdAt: new Date().toISOString(),
+  };
+  letters.unshift(newLetter); // Add to the beginning of the list
+  saveAllCoverLetters(letters);
+}
+
+/**
+ * Delete a cover letter from the history by its ID
+ */
+export function deleteCoverLetter(id: string): void {
+  let letters = loadCoverLetters();
+  letters = letters.filter(letter => letter.id !== id);
+  saveAllCoverLetters(letters);
 }
