@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Racing-inspired logo dengan gradient -->
+  <defs>
+    <linearGradient id="racing-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff0000"/>
+      <stop offset="100%" style="stop-color:#8b0000"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="url(#racing-gradient)" stroke="#ffffff" stroke-width="1"/>
+  
+  <!-- Letter G for Granite -->
+  <text x="16" y="22" font-family="Arial Black, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">G</text>
+  
+  <!-- Speed lines -->
+  <line x1="4" y1="8" x2="12" y2="8" stroke="white" stroke-width="1"/>
+  <line x1="4" y1="12" x2="10" y2="12" stroke="white" stroke-width="1"/>
+  <line x1="4" y1="16" x2="8" y2="16" stroke="white" stroke-width="1"/>
+</svg>
