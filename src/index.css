@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Original Beautiful Theme + Jules' History Functionality */
+/* Beautiful Enhanced Theme + Jules' History Functionality */
 
 @layer base {
   :root {
-    /* Back to Beautiful Dark Theme */
+    /* Beautiful Dark Theme */
     --background: 0 0% 0%; /* #000000 */
     --background-surface: 0 0% 6%; /* #0f0f0f */
     --background-elevated: 0 0% 10%; /* #1a1a1a */
@@ -14,7 +14,7 @@
     --foreground-muted: 0 0% 70%; /* #b3b3b3 */
     --foreground-subtle: 0 0% 50%; /* #808080 */
 
-    /* Restore beautiful accent colors */
+    /* Beautiful accent colors */
     --primary: 0 0% 100%; /* White */
     --primary-hover: 0 0% 85%; /* Light gray */
     --primary-foreground: 0 0% 0%; /* Black */
@@ -45,11 +45,11 @@
     --popover: 0 0% 6%; /* #0f0f0f */
     --popover-foreground: 0 0% 100%;
 
-    /* Restore beautiful effects */
+    /* Beautiful effects */
     --gradient-hero: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     --gradient-card: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
     
-    /* Restore shadows for depth */
+    /* Shadows for depth */
     --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     
@@ -78,7 +78,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: hsl(var(--background-surface));
   }
 
   ::-webkit-scrollbar-thumb {
@@ -88,7 +88,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--foreground-muted));
+    background: hsl(var(--primary-hover));
   }
 }
 
