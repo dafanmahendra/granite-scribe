@@ -1,76 +1,70 @@
-# IBM Granite AI - Capstone Project
+# Granite Scribe - AI Cover Letter Generator
 
-A sophisticated web application integrating IBM Granite AI for text generation and analysis, featuring a Netflix-inspired dark theme interface.
+Professional Indonesian cover letter generator powered by IBM Granite AI with modern UI and real-time economic data integration.
 
 ## 🎯 Project Overview
 
-This IBM Capstone project demonstrates advanced fullstack development skills with AI integration. The application provides a sleek, professional interface for interacting with IBM's Granite AI model through a chat-like interface with persistent conversation history.
+AI-powered cover letter generator that creates professional Indonesian job applications. Features few-shot prompting, real-time economic data from World Bank API, and PDF export functionality.
 
-## ✨ Key Features
+## Key Features
 
-- **🤖 IBM Granite AI Integration**: Mock implementation ready for real IBM Watson/Granite API
-- **🎨 Netflix-Inspired Dark Theme**: Premium dark interface with red accents (#E50914)
-- **💬 Real-time Chat Interface**: Intuitive conversation flow with typing indicators
-- **📚 Conversation History**: Persistent chat sessions with search and management
-- **📱 Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **🎭 Smooth Animations**: Elegant transitions and micro-interactions
-- **💾 Local Storage**: Client-side data persistence for chat history
-- **🔍 Search Functionality**: Find specific conversations and messages
-- **⚡ Performance Optimized**: Fast loading with efficient state management
+- **🤖 IBM Granite AI Integration**: Few-shot prompting for natural Indonesian cover letters
+- **🎨 Modern Dark UI**: Clean interface with F1-inspired branding
+- **� Real-time Economic Data**: Indonesia GDP & unemployment data from World Bank API
+- **� PDF Export**: Download cover letters as formatted PDF documents
+- **💾 History Management**: Save, load, and manage multiple cover letter drafts
+- **📱 Responsive Design**: Works on desktop, tablet, and mobile
+- **🇮� Indonesian Language**: Professional formal Indonesian business writing
+- **⚡ Fast Performance**: Optimized loading and smooth interactions
 
 ## 🛠 Tech Stack
 
 ### Frontend
+
 - **React 18** with TypeScript
-- **Vite** for fast development and building
-- **Tailwind CSS** with custom design system
-- **shadcn/ui** components (customized)
-- **Lucide React** for icons
+- **Vite** for development and building
+- **Tailwind CSS** for styling
+- **shadcn/ui** components
+- **Lucide React** icons
 - **React Router** for navigation
-- **TanStack Query** for state management
 
-### Design System
-- **Color Palette**: Netflix-inspired (Black, Dark Gray, Red accents)
-- **Typography**: Clean, modern font hierarchy
-- **Animations**: Smooth transitions with CSS custom properties
-- **Responsive**: Mobile-first approach with breakpoints
+### Features
 
-### AI Integration (Mock)
-- Mock IBM Granite API responses
-- Contextual response generation
-- Error handling and loading states
-- Extensible for real API integration
+- **IBM Granite AI** for text generation
+- **World Bank API** for economic data
+- **html2canvas + jsPDF** for PDF export
+- **LocalStorage** for data persistence
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js 18+ and npm
 - Modern web browser
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd ibm-granite-capstone
-   ```
+1. **Clone and install**
 
-2. **Install dependencies**
    ```bash
+   git clone https://github.com/dafanmahendra/granite-scribe.git
+   cd granite-scribe
    npm install
    ```
 
-3. **Start development server**
+2. **Start development**
+
    ```bash
    npm run dev
    ```
 
-4. **Open in browser**
+3. **Open browser**
    ```
    http://localhost:8080
    ```
 
 ### Build for Production
+
 ```bash
 npm run build
 npm run preview
@@ -81,146 +75,81 @@ npm run preview
 ```
 src/
 ├── components/
-│   ├── ui/                    # Customized shadcn components
-│   ├── ChatInterface.tsx      # Main chat component
-│   ├── HistorySidebar.tsx     # Conversation history
-│   └── Navbar.tsx            # Navigation bar
+│   ├── ui/                    # shadcn UI components
+│   ├── ChatInterface.tsx      # Main cover letter form
+│   ├── HistorySidebar.tsx     # Draft history management
+│   ├── Benefits.tsx           # SDG benefits display
+│   └── Hero.tsx              # Landing page hero
 ├── lib/
-│   ├── ibm-granite.ts        # Mock AI integration
+│   ├── ibm-granite.ts        # IBM Granite AI integration
 │   ├── storage.ts            # LocalStorage utilities
 │   └── utils.ts              # Helper functions
 ├── pages/
-│   ├── Index.tsx             # Main application page
-│   └── NotFound.tsx          # 404 error page
-├── hooks/                    # Custom React hooks
-├── index.css                 # Design system & global styles
-└── main.tsx                  # Application entry point
+│   ├── Index.tsx             # Landing page
+│   ├── Landing.tsx           # Main landing page
+│   ├── Assistant.tsx         # Cover letter generator
+│   └── NotFound.tsx          # 404 page
+└── main.tsx                  # App entry point
 ```
 
-## 🎨 Design System
+## 🎨 Design
 
-### Color Palette
-```css
-/* Primary Colors */
---background: 0 0% 0%;           /* Pure black */
---primary: 348 86% 46%;          /* Netflix red #E50914 */
---foreground: 0 0% 100%;         /* Pure white */
+Dark theme with F1-inspired favicon. Clean, professional interface optimized for Indonesian business use.
 
-/* Surface Colors */
---background-surface: 0 0% 8%;    /* Dark gray */
---background-elevated: 0 0% 12%;  /* Elevated surface */
---card-elevated: 0 0% 12%;        /* Card background */
+## 🔌 AI Integration
 
-/* Interactive Elements */
---input: 0 0% 15%;               /* Input background */
---input-border: 0 0% 25%;        /* Input border */
---border: 0 0% 15%;              /* General borders */
-```
+Uses IBM Granite AI with few-shot prompting strategy:
 
-### Typography
-- **Headings**: Bold, high contrast
-- **Body**: Clean, readable with proper line height
-- **UI Text**: Subtle variations for hierarchy
+- Professional Indonesian cover letter examples
+- Context-aware responses
+- Natural business language generation
 
-### Animations
-- **Smooth Transitions**: 0.3s cubic-bezier easing
-- **Slide Animations**: Subtle entrance effects
-- **Glow Effects**: Red accent glows on interactive elements
+For real IBM integration, update `lib/ibm-granite.ts` with your API credentials.
 
-## 🔌 API Integration
+## 📊 Features
 
-### Current Implementation (Mock)
-The application currently uses mock responses that simulate IBM Granite AI behavior:
+### Cover Letter Generator
 
-```typescript
-// lib/ibm-granite.ts
-export async function generateText(prompt: string): Promise<GraniteResponse>
-```
+- Form-based input for job details and personal information
+- AI-powered content generation in formal Indonesian
+- Real-time preview of generated content
+- Professional business writing standards
 
-### Real IBM Integration
-To connect to actual IBM Watson/Granite:
+### Economic Data Integration
 
-1. **Install IBM SDK**
-   ```bash
-   npm install ibm-watson @ibm-cloud/watsonx-ai
-   ```
+- Live Indonesia economic indicators
+- GDP growth rate from World Bank API
+- Unemployment statistics
+- Supports SDG #8: Decent Work and Economic Growth
 
-2. **Update Environment Variables**
-   ```bash
-   # Add to Supabase Edge Function Secrets
-   IBM_API_KEY=your_api_key
-   IBM_SERVICE_URL=your_service_url
-   ```
+### History & Export
 
-3. **Replace Mock Functions**
-   Update `lib/ibm-granite.ts` with real API calls
-
-## 📊 Features in Detail
-
-### Chat Interface
-- **Real-time messaging** with smooth animations
-- **Typing indicators** during AI processing
-- **Message timestamps** and user identification
-- **Auto-scroll** to latest messages
-- **Keyboard shortcuts** (Enter to send, Shift+Enter for new line)
-
-### History Management
-- **Persistent storage** using localStorage
-- **Search functionality** across all conversations
-- **Session management** with creation/deletion
-- **Automatic cleanup** to prevent storage bloat
-- **Export capabilities** for data portability
-
-### Responsive Design
-- **Mobile-optimized** sidebar with overlay
-- **Adaptive layouts** for different screen sizes
-- **Touch-friendly** interface elements
-- **Optimized typography** scaling
-
-## 🔒 Privacy & Data
-
-- **Local Storage**: All conversations stored client-side
-- **No External Tracking**: Privacy-focused implementation  
-- **Data Export**: Users can export their conversation history
-- **Clear Data**: Option to reset all stored information
+- Save multiple cover letter drafts
+- Load previous applications
+- Export to PDF with professional formatting
+- Local storage for privacy
 
 ## 🚀 Deployment
 
-### Lovable Platform
-1. Visit the [Lovable Project](https://lovable.dev/projects/f347ad5a-18d3-49f4-8e53-5c11c50c4d80)
-2. Click Share → Publish
-3. Optional: Connect custom domain in Project Settings
+Live at: https://granite-scribe.vercel.app
 
-### Manual Deployment
+Deploy your own:
+
 ```bash
 npm run build
-# Deploy 'dist' folder to your hosting provider
+# Deploy 'dist' folder to Vercel, Netlify, or any static host
 ```
 
-## 🎓 Learning Outcomes
+## 🎓 About
 
-This capstone project demonstrates:
+IBM Capstone project demonstrating:
 
-- **Full-stack Development**: React frontend with AI backend integration
-- **Modern UI/UX**: Netflix-inspired design with accessibility considerations
-- **State Management**: Complex application state with persistent storage
-- **API Integration**: Mock implementation ready for production APIs
-- **Performance Optimization**: Efficient rendering and data handling
-- **Responsive Design**: Mobile-first, cross-device compatibility
-- **Code Architecture**: Clean, maintainable, and scalable code structure
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📄 License
-
-This project is part of an IBM Capstone program and is intended for educational purposes.
+- AI integration with professional prompting
+- Real-time data from external APIs
+- Indonesian business writing standards
+- Modern React development practices
+- PDF generation and export features
 
 ---
 
-**Built for IBM Capstone Program**
+**Built for IBM Capstone Program - Supporting SDG #8: Decent Work and Economic Growth**
